@@ -10,7 +10,10 @@
 #include <ifaddrs.h>
 #include <osiProcess.h>
 
+
+#ifndef _WIN32
 struct ifaddrs;
+#endif
 
 namespace pvxs {
 namespace certs {
