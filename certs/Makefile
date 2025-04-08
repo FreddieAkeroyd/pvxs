@@ -13,9 +13,6 @@ USR_CPPFLAGS += -DPVXS_ENABLE_OPENSSL -I$(TOP)/bundle/CLI11/include
 AUTHN = $(TOP)/certs/authn
 SRC_DIRS += $(TOP)/src
 SRC_DIRS += $(TOP)/ioc
-SRCS += p12filefactory.cpp
-SRCS += certfilefactory.cpp
-SRCS += certfactory.cpp
 
 
 PROD_LIBS = pvxs Com

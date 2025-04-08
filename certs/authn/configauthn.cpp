@@ -40,8 +40,10 @@ void ConfigAuthN::fromAuthEnv(const std::map<std::string, std::string> &defs) {
     // Get hostname or IP address (Organization)
     char hostname[PVXS_X509_AUTH_HOSTNAME_MAX];
     if (!!gethostname(hostname, PVXS_X509_AUTH_HOSTNAME_MAX)) {
+#ifndef _WIN32
         // If no hostname then try to get IP address
         strcpy(hostname, getIPAddress().c_str());
+#endif
     }
     const std::string retrieved_organization = hostname;
 
