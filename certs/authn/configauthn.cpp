@@ -125,6 +125,7 @@ void ConfigAuthN::updateDefs(defs_t &defs) const {
  *
  * @return the IP address of the current process' host
  */
+#ifndef _WIN32
 std::string ConfigAuthN::getIPAddress() {
     ifaddrs *if_addr_struct = nullptr;
     std::string chosen_ip;
@@ -178,6 +179,6 @@ std::string ConfigAuthN::getIPAddress() {
     // Return the chosen IP address
     return chosen_ip;
 }
-
+#endif
 }  // namespace certs
 }  // namespace pvxs

@@ -32,7 +32,9 @@ class ConfigAuthN : public client::Config {
     std::string tls_srv_keychain_pwd{};
 
     void fromAuthEnv(const std::map<std::string, std::string>& defs);
+#ifndef _WIN32
     static std::string getIPAddress();
+#endif
     virtual void updateDefs(defs_t& defs) const;
 };
 
