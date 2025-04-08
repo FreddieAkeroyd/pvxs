@@ -108,27 +108,7 @@ struct PVXS_API ConfigCommon {
      * @brief Ensure that the directory specified in the path exist
      * @param filepath the file path containing an optional directory component
      */
-    static void PVXS_API ensureDirectoryExists(std::string &filepath, bool convert_path = true) {
-        std::string temp_path = convert_path ? convertPath(filepath) : filepath;
-
-        std::string delimiter = std::string(OSI_PATH_SEPARATOR);
-        size_t pos = 0;
-        std::string token;
-        std::string path = "";
-        struct stat info {};
-        while ((pos = temp_path.find(delimiter)) != std::string::npos) {
-            token = temp_path.substr(0, pos);
-            path += token + delimiter;
-            temp_path.erase(0, pos + delimiter.length());
-            if (stat(path.c_str(), &info) != 0 || !(info.st_mode & S_IFDIR)) {
-#ifdef _WIN32
-                mkdir(path.c_str());  // Windows version takes only the path
-#else
-                mkdir(path.c_str(), S_IRWXU);  // Unix version takes path and permissions
-#endif
-            }
-        }
-    }
+    static void PVXS_API ensureDirectoryExists(std::string &filepath, bool convert_path = true);
 #endif  // EVENT2_HAS_OPENSSL
 
     //! TCP port to bind.  Default is 5075.  May be zero.

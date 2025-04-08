@@ -80,6 +80,33 @@ std::string getXdgDataHome(std::string default_home) {
 }
 
 ConfigCommon::~ConfigCommon() {}
+
+/**
+ * @brief Ensure that the directory specified in the path exist
+ * @param filepath the file path containing an optional directory component
+ */
+void ConfigCommon::ensureDirectoryExists(std::string &filepath, bool convert_path) {
+    std::string temp_path = convert_path ? convertPath(filepath) : filepath;
+
+    std::string delimiter = std::string(OSI_PATH_SEPARATOR);
+    size_t pos = 0;
+    std::string token;
+    std::string path = "";
+    struct stat info {};
+    while ((pos = temp_path.find(delimiter)) != std::string::npos) {
+        token = temp_path.substr(0, pos);
+        path += token + delimiter;
+        temp_path.erase(0, pos + delimiter.length());
+        if (stat(path.c_str(), &info) != 0 || !(info.st_mode & S_IFDIR)) {
+#ifdef _WIN32
+            mkdir(path.c_str());  // Windows version takes only the path
+#else
+            mkdir(path.c_str(), S_IRWXU);  // Unix version takes path and permissions
+#endif
+        }
+    }
+}
+
 #define stringifyX(X) #X
 #define stringify(X) stringifyX(X)
 
