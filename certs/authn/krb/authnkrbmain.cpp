@@ -162,6 +162,7 @@ using namespace pvxs::certs;
  * @return the exit status
  */
 int main(const int argc, char *argv[]) {
+    //epicsThreadSleep(30);
     return runAuthenticator<ConfigKrb, AuthNKrb>(argc, argv, [](ConfigKrb &config, AuthNKrb &auth) {
         if (config.krb_realm.empty()) {
             config.krb_realm = auth.getRealm();

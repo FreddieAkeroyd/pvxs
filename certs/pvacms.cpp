@@ -40,7 +40,7 @@
 #include <epicsThread.h>
 #include <epicsTime.h>
 #include <epicsVersion.h>
-#include <ifaddrs.h>
+//#include <ifaddrs.h>
 #include <osiProcess.h>
 
 #include <openssl/asn1.h>

@@ -8,9 +8,10 @@
  *
  */
 
-#include "certstatusmanager.h"
-
 #include <thread>
+#include <string>
+
+#include "certstatusmanager.h"
 
 #include <openssl/evp.h>
 #include <openssl/ocsp.h>

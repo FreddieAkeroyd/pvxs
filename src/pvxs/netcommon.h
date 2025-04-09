@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 
+#include <winsock2.h>
 #include <pvxs/config.h>
 #include <pvxs/version.h>
 

@@ -4,10 +4,6 @@
  * in file LICENSE that is included with this distribution.
  */
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
 #include <iostream>
 #include <memory>
 #include <sstream>

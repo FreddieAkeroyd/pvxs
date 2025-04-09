@@ -32,6 +32,7 @@ CMAKEFLAGS += -DEVENT__DISABLE_TESTS=ON
 CMAKEFLAGS += -DEVENT__DISABLE_BENCHMARK=ON
 
 CMAKEFLAGS += -DCMAKE_MACOSX_RPATH=ON -DCMAKE_SKIP_INSTALL_RPATH=OFF
+CMAKEFLAGS += -DOPENSSL_ROOT_DIR=$(OPENSSL)
 
 # searched for toolchain files
 CMAKEFLAGS += -DCMAKE_MODULE_PATH:DIR="$(abspath $(TOP)/bundle/cmake)"
@@ -95,6 +96,12 @@ help:
 	$(ECHO) " make -C bundle clean  # remove all for targets"
 	$(ECHO) " # remove one target"
 	$(ECHO) " make -C bundle clean.<epics-arch> # remove for one target"
+
+install: libevent
+
+uninstall: clean
+
+runtests:
 
 libevent: libevent.$(EPICS_HOST_ARCH)
 

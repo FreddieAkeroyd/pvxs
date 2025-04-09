@@ -12,7 +12,7 @@
 #include <epicsGetopt.h>
 #include <epicsThread.h>
 #if !defined(_WIN32) && !defined(_MSC_VER)
-#include <termios.h>
+//#include <termios.h>
 #endif
 #include <pvxs/client.h>
 #include <pvxs/log.h>
@@ -33,14 +33,14 @@ DEFINE_LOGGER(certslog, "pvxs.certs.tool");
 
 #if !defined(_WIN32) && !defined(_MSC_VER)
 void setEcho(const bool enable) {
-    termios tty{};
-    tcgetattr(STDIN_FILENO, &tty);
-    if (!enable) {
-        tty.c_lflag &= ~ECHO;
-    } else {
-        tty.c_lflag |= ECHO;
-    }
-    tcsetattr(STDIN_FILENO, TCSANOW, &tty);
+//    termios tty{};
+//    tcgetattr(STDIN_FILENO, &tty);
+//    if (!enable) {
+//        tty.c_lflag &= ~ECHO;
+//    } else {
+//        tty.c_lflag |= ECHO;
+//    }
+//    tcsetattr(STDIN_FILENO, TCSANOW, &tty);
 }
 #endif
 }  // namespace

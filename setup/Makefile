@@ -12,7 +12,7 @@ LIBEVENT ?= $(LIBEVENT_$(T_A))
 LIBEVENT_$(T_A) ?= $(wildcard $(abspath $(TOP)/bundle/usr/$(T_A)))
 
 _LIBEVENT_BUNDLE_LIBS_YES = event_openssl
-_LIBEVENT_SYS_LIBS_YES += ssl crypto
+_LIBEVENT_SYS_LIBS_YES += libssl libcrypto
 
 _LIBEVENT_BUNDLE_LIBS += $(_LIBEVENT_BUNDLE_LIBS_$(EVENT2_HAS_OPENSSL))
 _LIBEVENT_BUNDLE_LIBS += event_core

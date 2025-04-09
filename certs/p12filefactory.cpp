@@ -9,17 +9,18 @@
 #include <iostream>
 #include <memory>
 
-#include <libgen.h>
+//#include <libgen.h>
 
 #ifdef __unix__
 #include <pwd.h>
+#include <unistd.h>
 #endif
 #include <string>
 #include <tuple>
 #include <type_traits>
 #include <unordered_set>
 
-#include <unistd.h>
+#include <io.h>
 
 #include <openssl/err.h>
 #include <openssl/evp.h>
@@ -277,7 +278,7 @@ void P12FileFactory::writePKCS12File() {
     p12_ptr_ = nullptr;
 
     chmod(filename_.c_str(),
-          S_IRUSR | S_IWUSR);  // Protect P12 file
+          _S_IREAD | _S_IWRITE);  // Protect P12 file
     std::cout << "Keychain file created   : " << filename_ << std::endl;
 }
 }  // namespace certs

@@ -33,7 +33,8 @@ pvacms_SRCS += credentials.cpp
 pvacms_SRCS += securityclient.cpp
 
 pvacms_LIBS += $(EPICS_BASE_IOC_LIBS)
-pvacms_SYS_LIBS += sqlite3 ssl crypto
+pvacms_LIBS += sqlite
+pvacms_SYS_LIBS +=libssl libcrypto
 endif
 
 #PROD += ocsppva

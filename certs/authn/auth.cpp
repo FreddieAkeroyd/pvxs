@@ -184,7 +184,7 @@ timeval Auth::configurationMonitor(ConfigMonitorParams &config_monitor_params, s
     // If timer has not yet expired
     if (expires_in > 0) {
         // Set time interval for next callback and return
-        return {expires_in, 0};
+        return {(long)expires_in, 0};
     }
 
     // If timer has expired call function to update config with a new certificate
@@ -218,7 +218,7 @@ timeval Auth::configurationMonitor(ConfigMonitorParams &config_monitor_params, s
     assert(expires_in >= 0);
 
     // Call back when expired
-    return {expires_in, 0};
+    return {(long)expires_in, 0};
 }
 
 std::string Auth::formatTimeDuration(time_t total_seconds) {

@@ -5,7 +5,7 @@
  */
 
 #include <osiProcess.h>
-
+#include <string>
 #include <pvxs/log.h>
 
 #ifdef PVXS_ENABLE_OPENSSL

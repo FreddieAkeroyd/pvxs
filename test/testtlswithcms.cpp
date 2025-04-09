@@ -602,7 +602,7 @@ struct Tester {
         TEST_COUNTER_EQ(client1, 1)
 
         // Sleep a bit, but not long enough for the status validity to expire
-        sleep(1);
+        epicsThreadSleep(1);
 
         testDiag("Get with cached-status");
         auto reply_2(cli.get(TEST_PV).exec()->wait(5.0));

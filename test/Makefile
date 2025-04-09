@@ -126,23 +126,24 @@ ifeq ($(EVENT2_HAS_OPENSSL),YES)
 USR_CPPFLAGS += -DPVXS_ENABLE_OPENSSL
 TESTPROD_HOST += gen_test_certs
 gen_test_certs_SRCS += gen_test_certs.cpp
+gen_test_certs_SRCS += applink.c
 
 TESTPROD_HOST += testtls
 testtls_SRCS += testtls.cpp
 testtls_SRCS += certstatusfactory.cpp
-testtls_SRCS += certstatus.cpp
+testtls_SRCS += certstatus.cpp applink.c
 TESTS += testtls
 TESTFILES += cert_auth.p12 cert_authcert.p12 client1.p12 client2.p12 intermediateCA.p12 ioc1.p12 server1.p12 server2.p12 superserver1.p12
 
 TESTPROD_HOST += testtlswithcms
-testtlswithcms_SRCS += testtlswithcms.cpp
+testtlswithcms_SRCS += testtlswithcms.cpp applink.c
 testtlswithcms_SRCS += certstatusfactory.cpp
 testtlswithcms_SRCS += certstatus.cpp
 TESTS += testtlswithcms
 TESTFILES += cert_auth.p12 cert_authcert.p12 client1.p12 client2.p12 intermediateCA.p12 ioc1.p12 server1.p12 server2.p12 superserver1.p12
 
 TESTPROD_HOST += testtlswithcmsandstapling
-testtlswithcmsandstapling_SRCS += testtlswithcmsandstapling.cpp
+testtlswithcmsandstapling_SRCS += applink.c testtlswithcmsandstapling.cpp
 testtlswithcmsandstapling_SRCS += certstatusfactory.cpp
 testtlswithcmsandstapling_SRCS += certstatus.cpp
 TESTS += testtlswithcmsandstapling
@@ -153,7 +154,7 @@ testtlstime_SRCS += testtlstime.cpp
 TESTS += testtlstime
 
 TESTPROD_HOST += testtlsstatus
-testtlsstatus_SRCS += testtlsstatus.cpp
+testtlsstatus_SRCS += testtlsstatus.cpp applink.c
 testtlsstatus_SRCS += certstatusfactory.cpp
 testtlsstatus_SRCS += certstatus.cpp
 TESTS += testtlsstatus
@@ -247,6 +248,15 @@ testtls$(EXE): | cert_auth.p12
 
 # generate test certs only with EPICS_HOST_ARCH
 ifdef T_A
+# set PATH on windows so can run gtest code
+BINPATH = $(abspath $(TOP)/bin/$(EPICS_HOST_ARCH))
+ifneq ($(findstring windows,$(EPICS_HOST_ARCH)),)
+export PATH := $(subst /,\,$(BINPATH));$(PATH)
+endif
+ifneq ($(findstring win32,$(EPICS_HOST_ARCH)),)
+export PATH := $(subst /,\,$(BINPATH));$(PATH)
+endif
+
 cert_auth.p12 :
 	$(RM) *.p12
 	../O.$(EPICS_HOST_ARCH)/gen_test_certs$(HOSTEXE) -O .

@@ -35,8 +35,7 @@ DEFINE_LOGGER(status_setup, "pvxs.certs.status");
 #elif defined(__INT_MAX__)
 #define PERMANENTLY_VALID_STATUS (time_t)(__INT_MAX__)
 #else
-PERMANENTLY_VALID_STATUS(time_t)
-((~(unsigned long long)0) >> 1)
+#define PERMANENTLY_VALID_STATUS (time_t)((~(unsigned long long)0) >> 1)
 #endif
 
 namespace pvxs {
@@ -97,7 +96,15 @@ enum ocspcertstatus_t { OCSP_CERT_STATUS_LIST };
 #define OCSP_CERT_STATES {OCSP_CERT_STATUS_LIST}
 
 // Gets status name based on index
-#define CERT_STATE(index) ((const char*[])CERT_STATES[(index)])
+
+
+static const char* CERT_STATE(int index)
+{
+    static const char* vals[] = { CERT_STATUS_LIST };
+    return vals[index];
+}
+
+
 #define OCSP_CERT_STATE(index) ((const char*[])OCSP_CERT_STATES[(index)])
 
 // Forward declarations
@@ -396,6 +403,11 @@ struct PVACertStatus : CertStatus {
      * @return the string representation of the status
      */
     static std::string toString(const certstatus_t status) { return CERT_STATE(status); }
+    
+
+
+
+
 };
 
 /**
@@ -425,7 +437,7 @@ struct OCSPCertStatus : CertStatus {
      * @param status the enum index of the status
      * @return the string representation of the status
      */
-    static std::string toString(const ocspcertstatus_t& status) { return OCSP_CERT_STATE(status); }
+    static std::string toString(const ocspcertstatus_t& status) { const char* vals[] = { OCSP_CERT_STATUS_LIST }; return vals[status]; }
 };
 
 /**

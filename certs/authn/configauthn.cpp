@@ -131,13 +131,13 @@ std::string ConfigAuthN::getIPAddress() {
     std::string chosen_ip;
     std::string private_ip;
 
-    getifaddrs(&if_addr_struct);
+    //getifaddrs(&if_addr_struct);
 
     // Regex to match local and self-assigned addresses
     const std::regex local_address_pattern(R"(^(127\.)|(169\.254\.))");
     // Regex to match private addresses
     const std::regex private_address_pattern(R"(^(10\.)|(172\.1[6-9]\.)|(172\.2[0-9]\.)|(172\.3[0-1]\.)|(192\.168\.))");
-
+#if 0
     // Iterate through all the network interfaces
     for (const ifaddrs *ifa = if_addr_struct; ifa != nullptr; ifa = ifa->ifa_next) {
         // Skip if the interface address is not valid
@@ -166,9 +166,9 @@ std::string ConfigAuthN::getIPAddress() {
             }
         }
     }
-
+#endif
     // Free the memory allocated for the network interface addresses
-    if (if_addr_struct != nullptr) freeifaddrs(if_addr_struct);
+    //if (if_addr_struct != nullptr) freeifaddrs(if_addr_struct);
 
     // If no public IP addresses were found, use the first private IP that was
     // found.

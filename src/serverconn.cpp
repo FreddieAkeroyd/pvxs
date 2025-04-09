@@ -77,11 +77,14 @@ ServerConn::ServerConn(ServIface* iface, evutil_socket_t sock, struct sockaddr *
     ,iface(iface)
     ,tcp_tx_limit(evsocket::get_buffer_size(sock, true) * tcp_tx_limit_mult)
 {
-    log_debug_printf(connio, "Client %s connects%s, RX readahead %zu TX limit %zu\n", peerName.c_str(),
 #ifdef PVXS_ENABLE_OPENSSL
+    log_debug_printf(connio, "Client %s connects%s, RX readahead %zu TX limit %zu\n", peerName.c_str(),
                        iface->isTLS ? " TLS" :
-#endif
                       "", readahead, tcp_tx_limit);
+#else
+    log_debug_printf(connio, "Client %s connects%s, RX readahead %zu TX limit %zu\n", peerName.c_str(),
+                      "", readahead, tcp_tx_limit);
+#endif
     {
         int opt = 1;
         if(setsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (char*)&opt, sizeof(opt))<0) {

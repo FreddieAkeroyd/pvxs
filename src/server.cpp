@@ -731,11 +731,14 @@ void Server::Pvt::start()
             if(evconnlistener_enable(iface.listener.get())) {
                 log_err_printf(serversetup, "Error enabling listener on %s\n", iface.name.c_str());
             }
-            log_debug_printf(serversetup, "Server enabled%s listener on %s\n",
 #ifdef PVXS_ENABLE_OPENSSL
+            log_debug_printf(serversetup, "Server enabled%s listener on %s\n",
                                iface.isTLS ? " TLS" :
-#endif
                               "", iface.name.c_str());
+#else
+            log_debug_printf(serversetup, "Server enabled%s listener on %s\n",
+                              "", iface.name.c_str());
+#endif
         }
     });
     if(prev_state!=Stopped)

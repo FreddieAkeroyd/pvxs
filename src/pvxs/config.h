@@ -13,6 +13,8 @@
 
 #endif
 
+#include <direct.h>
+
 #include <cctype>
 #include <climits>
 #include <fstream>
@@ -21,22 +23,53 @@
 #include <list>
 #include <map>
 
-#include <libgen.h>
+//#include <libgen.h>
 
 #ifdef __unix__
 #include <pwd.h>
+#include <unistd.h>
 #endif
 #include <regex>
 #include <sstream>
 #include <string>
 
-#include <unistd.h>
 
 #include <sys/stat.h>
 
 #include <pvxs/version.h>
 
 #include "osiFileName.h"
+
+#ifndef PATH_MAX
+#define PATH_MAX 260
+#endif
+
+static char* dirname(char * dir)
+{
+    static char* current_dir = strdup(".");
+    int last = -1;
+    if (dir == NULL || dir[0] == '\0') {
+        return current_dir;
+    }
+    if (!strcmp(dir, "/") || !strcmp(dir, "\\")) {
+        return dir;
+    }
+    int len = strlen(dir);
+    if (dir[len-1] == '\\' || dir[len-1] == '/') {
+        dir[len-1] = '\0';
+    }
+    for(int i=0; i< strlen(dir); ++i) {
+        if (dir[i] == '\\' || dir[i] == '/') {
+            last = i;
+        }
+    }
+    if (last == -1) {
+        return current_dir;
+    } else {
+        dir[last] = '\0';
+        return dir;
+    }
+}
 
 namespace pvxs {
 namespace impl {
@@ -108,7 +141,7 @@ struct PVXS_API ConfigCommon {
      * @brief Ensure that the directory specified in the path exist
      * @param filepath the file path containing an optional directory component
      */
-    static void PVXS_API ensureDirectoryExists(std::string &filepath, bool convert_path = true);
+    static void ensureDirectoryExists(std::string &filepath, bool convert_path = true);
 #endif  // EVENT2_HAS_OPENSSL
 
     //! TCP port to bind.  Default is 5075.  May be zero.

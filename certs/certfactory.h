@@ -161,11 +161,11 @@ class PVXS_API CertFactory {
           cert_config_uri_base_(cert_config_uri_base),
           initial_status_(initial_status) {}
 
-    ossl_ptr<X509> PVXS_API create();
+    ossl_ptr<X509> create();
 
     static time_t getNotAfterTimeFromCert(const ossl_ptr<X509> &cert);
 
-    static std::string PVXS_API certAndCasToPemString(const ossl_ptr<X509> &cert, const STACK_OF(X509) * cert_auth_chain_ptr);
+    static std::string certAndCasToPemString(const ossl_ptr<X509> &cert, const STACK_OF(X509) * cert_auth_chain_ptr);
 
     //    static bool PVXS_API verifySignature(const ossl_ptr<EVP_PKEY> &pkey, const std::string &data, const std::string &signature);
 

@@ -13,7 +13,11 @@ pvacms_SRCS += authnkrb.cpp
 pvacms_SRCS += configkrb.cpp
 
 # Detect the operating system
+ifdef WIN32
+UNAME_S := Win
+else
 UNAME_S := $(shell uname -s)
+endif
 
 # Set platform-specific krb libs
 ifeq ($(UNAME_S), Darwin)
@@ -22,6 +26,6 @@ ifeq ($(UNAME_S), Darwin)
 	pvacms_LDFLAGS += -framework GSS
 else
     # MIT Kerberos
-	authnkrb_SYS_LIBS += gssapi_krb5 krb5 k5crypto com_err
-	pvacms_SYS_LIBS += gssapi_krb5 krb5 k5crypto com_err
+	authnkrb_LIBS += gssapi64 krb5_64 
+	pvacms_SYS_LIBS += gssapi64 krb5_64
 endif

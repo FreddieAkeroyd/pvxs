@@ -135,6 +135,8 @@ LIB_SYS_LIBS += $(LIBEVENT_SYS_LIBS)
 #include $(SECURITY)/Makefile
 #endif
 
+BIN_INSTALLS_WIN32 += $(wildcard $(LIBEVENT)/lib/*.dll)
+
 #===========================
 
 include $(TOP)/configure/RULES

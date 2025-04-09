@@ -9,7 +9,6 @@
 #ifndef _WIN32
 #include <ifaddrs.h>
 #endif
-
 #include <osiProcess.h>
 
 #include <pvxs/log.h>

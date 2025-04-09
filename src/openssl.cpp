@@ -837,6 +837,7 @@ std::shared_ptr<SSLContext> SSLContext::for_server(const impl::ConfigCommon &con
     return ctx;
 }
 
+
 SSLError::SSLError(const std::string &msg)
     : std::runtime_error([&msg]() -> std::string {
           std::ostringstream strm;
@@ -854,6 +855,7 @@ SSLError::SSLError(const std::string &msg)
       }()) {}
 
 SSLError::~SSLError() = default;
+
 
 std::ostream &operator<<(std::ostream &strm, const ShowX509 &cert) {
     if (cert.cert) {

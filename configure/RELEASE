@@ -29,7 +29,10 @@
 #SNCSEQ = $(MODULES)/seq-ver
 
 # EPICS_BASE should appear last so earlier modules can override stuff:
-#EPICS_BASE = /path/to/epics-base
+EPICS_BASE = c:/devel/epics-base-gm
+OPENSSL = c:/instrument/apps/epics-debug3/support/openssl/master/install/$(EPICS_HOST_ARCH)
+KRB5 = c:/instrument/apps/epics-debug3/support/krb5/master/install
+SQLITE=c:/instrument/apps/epics-debug3/support/sqlite/master
 
 # Set RULES here if you want to use build rules from somewhere
 # other than EPICS_BASE:

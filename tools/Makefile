@@ -20,7 +20,6 @@ SRCS += certstatus.cpp
 
 PROD += pvxcert
 pvxcert_SRCS += cert.cpp
-pvxcert_SRCS += openssl.cpp
 
 endif # EVENT2_HAS_OPENSSL
 
